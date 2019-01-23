@@ -2,6 +2,17 @@ body {
     text-align: center;
 }
 
+.Rules {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+ul {
+    width: auto;
+    text-align: left;
+}
+
 p#Scoreboard, p#Results {
     display: block;
     height: 2em;
