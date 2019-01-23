@@ -1,6 +1,8 @@
 let con = document.getElementById("Results");
 let user = document.getElementById("User");
 let score = document.getElementById("Scoreboard");
+let score_usr = 0;
+let score_npc = 0;
 
 const list_name = ["Rock","Paper","Scissors","Lizard","Spock"];
 const list_wins = [0b00110, 0b10001, 0b01010, 0b01001, 0b10100];
@@ -18,10 +20,14 @@ let RPSLS = function() {
         con.textContent = "You Win! "
                         + list_name[usr]
                         + " beats " + list_name[npc] + "!";
+        score_usr++;
     } else {
         con.textContent = "You Lose! "
                         + list_name[usr]
                         + " is beaten by " + list_name[npc] + "!";
-
+        score_npc++;
     }
+
+    score.innerHTML = "Score:<br />Player: " + score_usr.toString() 
+                    + " NPC: " + score_npc.toString();
 }

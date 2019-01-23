@@ -2,7 +2,7 @@ body {
     text-align: center;
 }
 
-p {
+p#Scoreboard, p#Results {
     display: block;
     height: 2em;
 }
