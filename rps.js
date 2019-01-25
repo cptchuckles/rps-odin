@@ -1,5 +1,4 @@
 let con = document.getElementById("Results");
-let user = document.getElementById("User");
 let score = document.getElementById("Scoreboard");
 let score_usr = 0;
 let score_npc = 0;
@@ -17,7 +16,6 @@ buttons.forEach(button => {
 
 let RPSLS = function(usr) {
     let npc = Math.floor(Math.random() * 5);
-    // let usr = Number(user.value);
 
     if(usr === npc) {
         con.textContent = "Draw! Both sides chose " + list_name[usr] + "!";
