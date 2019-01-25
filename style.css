@@ -17,3 +17,17 @@ p#Scoreboard, p#Results {
     display: block;
     height: 2em;
 }
+
+.Heroes {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 1em 0;
+    height: 3em;
+    justify-content: center;
+}
+
+.Heroes button {
+    width: 10em;
+    margin: 0 0.5em;
+}

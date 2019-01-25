@@ -24,19 +24,16 @@
         </div>
         <p id="Scoreboard"></p>
         <p id="Results"></p>
-        <p>
-            Choose your hero:
-            <form action="javascript:RPSLS()">
-                <select id="User">
-                    <option value="0" selected>Rock</option>
-                    <option value="1">Paper</option>
-                    <option value="2">Scissors</option>
-                    <option value="3">Lizard</option>
-                    <option value="4">Spock</option>
-                </select>
-                <input type="submit" value="Submit" />
-            </form>
-        </p>
+        <p>Choose your hero:</p>
+        <div class="Heroes">
+            <button accesskey="r"><u>R</u>ock</button>
+            <button accesskey="p"><u>P</u>aper</button>
+            <button accesskey="c">S<u>c</u>issors</button>
+        </div>
+        <div class="Heroes">
+            <button accesskey="l"><u>L</u>izard</button>
+            <button accesskey="s"><u>S</u>pock</button>
+        </div>
         <script src="rps.js"></script> 
     </body>
 </html>

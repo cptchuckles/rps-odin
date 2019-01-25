@@ -7,9 +7,17 @@ let score_npc = 0;
 const list_name = ["Rock","Paper","Scissors","Lizard","Spock"];
 const list_wins = [0b00110, 0b10001, 0b01010, 0b01001, 0b10100];
 
-let RPSLS = function() {
+let buttons = Array.from(document.querySelectorAll("button"));
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        RPSLS(list_name.indexOf(button.textContent));
+    });
+});
+
+let RPSLS = function(usr) {
     let npc = Math.floor(Math.random() * 5);
-    let usr = Number(user.value);
+    // let usr = Number(user.value);
 
     if(usr === npc) {
         con.textContent = "Draw! Both sides chose " + list_name[usr] + "!";
