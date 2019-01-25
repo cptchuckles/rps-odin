@@ -22,12 +22,13 @@ p#Scoreboard, p#Results {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    margin: 1em 0;
-    height: 3em;
+    height: auto;
+    margin: 0;
     justify-content: center;
 }
 
 .Heroes button {
     width: 10em;
-    margin: 0 0.5em;
+    height: 3em;
+    margin: 0.5em 0.5em;
 }
