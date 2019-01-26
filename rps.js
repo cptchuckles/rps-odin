@@ -6,11 +6,9 @@ let score_npc = 0;
 const list_name = ["Rock","Paper","Scissors","Lizard","Spock"];
 const list_wins = [0b00110, 0b10001, 0b01010, 0b01001, 0b10100];
 
-let buttons = Array.from(document.querySelectorAll("button"));
-
-buttons.forEach(button => {
-    button.addEventListener("click", () => {
-        RPSLS(list_name.indexOf(button.textContent));
+document.querySelectorAll("button").forEach(b => {
+    b.addEventListener("click", () => {
+        RPSLS(list_name.indexOf(b.textContent));
     });
 });
 
@@ -22,7 +20,7 @@ let RPSLS = function(usr) {
         return;
     }
 
-    if(list_wins[usr] & (1 << (4-npc))) {
+    if(list_wins[usr] & (16 >> npc)) {
         con.textContent = "You Win! "
                         + list_name[usr]
                         + " beats " + list_name[npc] + "!";
