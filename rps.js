@@ -12,6 +12,14 @@ document.querySelectorAll("button").forEach(b => {
     });
 });
 
+//                R  P  C  L  S
+const keycodes = [82,80,67,76,83];
+window.addEventListener("keydown", k => {
+    let n = keycodes.indexOf(k.keyCode);
+    if(n>=0) RPSLS(n);
+});
+
+
 let RPSLS = function(usr) {
     let npc = Math.floor(Math.random() * 5);
 
