@@ -13,7 +13,7 @@ ul {
     text-align: left;
 }
 
-p#Scoreboard, p#Results {
+#Scoreboard, #Results {
     display: block;
     height: 2em;
 }
