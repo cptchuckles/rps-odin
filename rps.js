@@ -3,12 +3,17 @@ const score = document.getElementById("Scoreboard");
 let score_usr = 0;
 let score_npc = 0;
 
-const list_name = ["Rock","Paper","Scissors","Lizard","Spock"];
-const list_wins = [0b00110, 0b10001, 0b01010, 0b01001, 0b10100];
+const roster = {
+  "Rock":     0b00110,
+  "Paper":    0b10001,
+  "Scissors": 0b01010,
+  "Lizard":   0b01001,
+  "Spock":    0b10100
+};
 
 document.querySelectorAll("button").forEach(b => {
   b.addEventListener("click", () => {
-    RPSLS(list_name.indexOf(b.textContent));
+    RPSLS(b.textContent);
   });
 });
 
@@ -23,17 +28,17 @@ window.addEventListener("keydown", k => {
 function RPSLS( usr ) {
   let npc = Math.floor(Math.random() * 5);
 
-  if(usr === npc) {
-    con.textContent = `Draw! Both sides chose ${list_name[usr]}!`;
+  if(Object.keys(roster).indexOf(usr) === npc) {
+    con.textContent = `Draw! Both sides chose ${usr}!`;
     return;
   }
 
-  if(list_wins[usr] & (16 >> npc)) {
-    con.textContent = `You Win! ${list_name[usr]} beats ${list_name[npc]}!`;
+  if(roster[usr] & (16 >> npc)) {
+    con.textContent = `You Win! ${usr} beats ${Object.keys(roster)[npc]}!`;
     score_usr++;
   } else {
     con.textContent = "You Lose! "
-                    + `${list_name[usr]} is beaten by ${list_name[npc]}!`;
+                    + `${usr} is beaten by ${Object.keys(roster)[npc]}!`;
     score_npc++;
   }
 
