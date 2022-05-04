@@ -1,48 +1,76 @@
 body {
-  box-sizing: border-box;
-  display: block;
-  height: 100%;
-  text-align: center;
-  font-family: sans-serif;
-  background: linear-gradient( 0deg, #5ef, white );
-  background-attachment: fixed;
-  margin: 0;
+	box-sizing: border-box;
+	display: block;
+	height: 100%;
+	text-align: center;
+	font-family: sans-serif;
+	background: linear-gradient( 0deg, #5ef, white );
+	background-attachment: fixed;
+	margin: 0;
 }
 
+#rules-title {
+	border-bottom: 1px solid black;
+	min-width: fit-content;
+	width: 30%;
+	max-width: 30ch;
+	margin: auto;
+}
 .Rules {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
 
 ul {
-  width: auto;
-  text-align: left;
+	width: auto;
+	text-align: left;
 }
 
-#Scoreboard, #Results {
-  display: block;
-  height: 2em;
+#Results {
+	display: block;
+	height: 2em;
+}
+
+#scoreboard {
+	min-width: fit-content;
+	width: 50%;
+	max-width: 30ch;
+	margin: auto;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+#scoreboard thead {
+	background-color: #3ad;
+}
+#scoreboard thead th {
+	filter: drop-shadow(0px 0px 3px white);
+}
+#scoreboard td, #scoreboard th {
+	width: 50%;
+	margin: auto;
+	padding: 0.5em;
+	border: 1px solid black;
 }
 
 .Heroes {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  height: auto;
-  margin: 0;
-  justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	height: auto;
+	margin: 0;
+	justify-content: center;
 }
 
 .Heroes button {
-  width: 10rem;
-  height: 3rem;
-  font-weight: bold;
-  font-size: 1.2rem;
-  border: 3px solid #005;
-  border-radius: 5px;
-  background-color: #09e;
-  color: #aff;
-  text-shadow: 0 0 3px black;
-  margin: 0.5em 0.5em;
+	width: 10rem;
+	height: 3rem;
+	font-weight: bold;
+	font-size: 1.2rem;
+	border: 3px solid #005;
+	border-radius: 5px;
+	background-color: #09e;
+	color: #aff;
+	text-shadow: 0 0 3px black;
+	margin: 0.5em 0.5em;
 }
