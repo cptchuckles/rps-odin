@@ -1,47 +1,86 @@
-const con = document.getElementById("Results");
-const score = document.getElementById("Scoreboard");
-let score_usr = 0;
+/*
+ * Rock Paper Scissors (Lizard Spock)
+ * Project by J C Gollnick (github.com/cptchuckles/rps-odin)
+ */
+
+const round_results_dom = document.getElementById("Results");
+const score_player_dom = document.getElementById("player-score");
+const score_npc_dom = document.getElementById("npc-score");
+let score_player = 0;
 let score_npc = 0;
 
-const roster = {
-  "Rock":     0b00110,
-  "Paper":    0b10001,
-  "Scissors": 0b01010,
-  "Lizard":   0b01001,
-  "Spock":    0b10100
+const beaten_by = {
+	"Rock":     ["Scissors", "Lizard"],
+	"Paper":    ["Rock", "Spock"],
+	"Scissors": ["Paper", "Lizard"],
+	"Lizard":   ["Paper", "Spock"],
+	"Spock":    ["Rock", "Scissors"]
 };
 
-document.querySelectorAll("button").forEach(b => {
-  b.addEventListener("click", () => {
-    RPSLS(b.textContent);
-  });
+const verbs = {
+	"Rock beats Scissors":   {"winner": "smashes",     "loser": "is smashed by"},
+	"Scissors beats Lizard": {"winner": "decapitates", "loser": "is decapitated by"},
+	"Lizard beats Spock":    {"winner": "poisons",     "loser": "is poisoned by"},
+	"Spock beats Rock":      {"winner": "vaporizes",   "loser": "is vaporized by"},
+	"Rock beats Lizard":     {"winner": "crushes",     "loser": "is crushed by"},
+	"Lizard beats Paper":    {"winner": "eats",        "loser": "is eaten by"},
+	"Paper beats Spock":     {"winner": "disproves",   "loser": "is disproven by"},
+	"Spock beats Scissors":  {"winner": "breaks",      "loser": "is broken by"},
+	"Scissors beats Paper":  {"winner": "cuts",        "loser": "is cut by"},
+	"Paper beats Rock":      {"winner": "covers",      "loser": "is covered by"}
+};
+
+
+/*
+ * Hook up buttons to game
+ */
+
+document.querySelectorAll("button.Hero").forEach( hero => {
+	hero.addEventListener("click", () => PlayRound(hero.getAttribute("data-hero")));
 });
 
-//                R  P  C  L  S
+
+/*
+ * Enable keyboard shortcuts
+ */
+
+// Keycodes for:  R  P  C  L  S
 const keycodes = [82,80,67,76,83];
 window.addEventListener("keydown", k => {
-  let n = keycodes.indexOf(k.keyCode);
-  if(n>=0) RPSLS(n);
+	const n = keycodes.indexOf(k.keyCode);
+	if(n>=0) {
+		const hero = Object.keys(beaten_by)[n];
+		PlayRound(hero);
+	}
 });
 
 
-function RPSLS( usr ) {
-  let npc = Math.floor(Math.random() * 5);
+/*
+ * Game logic
+ * (there is no set amount of rounds; the player just keeps going until bored)
+ */
 
-  if(Object.keys(roster).indexOf(usr) === npc) {
-    con.textContent = `Draw! Both sides chose ${usr}!`;
-    return;
-  }
+function PlayRound( player ) {
+	const rng = Math.floor(Math.random() * 5)
+	const npc = Object.keys(beaten_by)[rng]; //This is the only line that doesn't look like pidgin english and i'm mad.
 
-  if(roster[usr] & (16 >> npc)) {
-    con.textContent = `You Win! ${usr} beats ${Object.keys(roster)[npc]}!`;
-    score_usr++;
-  } else {
-    con.textContent = "You Lose! "
-                    + `${usr} is beaten by ${Object.keys(roster)[npc]}!`;
-    score_npc++;
-  }
+	if( player === npc ) {
+		round_results_dom.textContent = `Draw! Both sides chose ${player}!`;
+		return;
+	}
 
-  score.innerHTML = `Score:<br />Player: ${score_usr.toString()}`
-                  + ` NPC: ${score_npc.toString()}`;
+	if( beaten_by[player].includes(npc) ) {
+		score_player++;
+
+		const verb = verbs[`${player} beats ${npc}`];
+		round_results_dom.textContent = `You Win! ${player} ${verb["winner"]} ${npc}!`;
+		score_player_dom.textContent = String(score_player);
+	}
+	else {
+		score_npc++;
+
+		const verb = verbs[`${npc} beats ${player}`];
+		round_results_dom.textContent = `You Lose! ${player} ${verb["loser"]} ${npc}!`;
+		score_npc_dom.textContent = String(score_npc);
+	}
 }
