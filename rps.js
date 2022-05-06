@@ -9,6 +9,8 @@ const score_npc_dom = document.getElementById("npc-score");
 let score_player = 0;
 let score_npc = 0;
 
+const heroes = ["Rock", "Paper", "Scissors", "Lizard", "Spock"];
+
 const beaten_by = {
 	"Rock":     ["Scissors", "Lizard"],
 	"Paper":    ["Rock", "Spock"],
@@ -18,16 +20,16 @@ const beaten_by = {
 };
 
 const verbs = {
-	"Rock beats Scissors":   {"winner": "smashes",     "loser": "is smashed by"},
-	"Scissors beats Lizard": {"winner": "decapitates", "loser": "is decapitated by"},
-	"Lizard beats Spock":    {"winner": "poisons",     "loser": "is poisoned by"},
-	"Spock beats Rock":      {"winner": "vaporizes",   "loser": "is vaporized by"},
-	"Rock beats Lizard":     {"winner": "crushes",     "loser": "is crushed by"},
-	"Lizard beats Paper":    {"winner": "eats",        "loser": "is eaten by"},
-	"Paper beats Spock":     {"winner": "disproves",   "loser": "is disproven by"},
-	"Spock beats Scissors":  {"winner": "breaks",      "loser": "is broken by"},
-	"Scissors beats Paper":  {"winner": "cuts",        "loser": "is cut by"},
-	"Paper beats Rock":      {"winner": "covers",      "loser": "is covered by"}
+	"Rock beats Scissors":   {"winner": "smashes",     "loser": "smashed"},
+	"Scissors beats Lizard": {"winner": "decapitates", "loser": "decapitated"},
+	"Lizard beats Spock":    {"winner": "poisons",     "loser": "poisoned"},
+	"Spock beats Rock":      {"winner": "vaporizes",   "loser": "vaporized"},
+	"Rock beats Lizard":     {"winner": "crushes",     "loser": "crushed"},
+	"Lizard beats Paper":    {"winner": "eats",        "loser": "eaten"},
+	"Paper beats Spock":     {"winner": "disproves",   "loser": "disproven"},
+	"Spock beats Scissors":  {"winner": "breaks",      "loser": "broken"},
+	"Scissors beats Paper":  {"winner": "cuts",        "loser": "cut"},
+	"Paper beats Rock":      {"winner": "covers",      "loser": "covered"}
 };
 
 
@@ -44,13 +46,17 @@ document.querySelectorAll("button.Hero").forEach( hero => {
  * Enable keyboard shortcuts
  */
 
-// Keycodes for:  R  P  C  L  S
-const keycodes = [82,80,67,76,83];
-window.addEventListener("keydown", k => {
-	const n = keycodes.indexOf(k.keyCode);
-	if(n>=0) {
-		const hero = Object.keys(beaten_by)[n];
-		PlayRound(hero);
+const keysToHeroes = {
+	82: "Rock",      // R
+	80: "Paper",     // P
+	67: "Scissors",  // C
+	76: "Lizard",    // L
+	83: "Spock"      // S
+};
+
+window.addEventListener("keydown", key => {
+	if(key.keyCode in keysToHeroes) {
+		PlayRound(keysToHeroes[key.keyCode]);
 	}
 });
 
@@ -62,7 +68,7 @@ window.addEventListener("keydown", k => {
 
 function PlayRound( player ) {
 	const rng = Math.floor(Math.random() * 5)
-	const npc = Object.keys(beaten_by)[rng]; //This is the only line that doesn't look like pidgin english and i'm mad.
+	const npc = heroes[rng];
 
 	if( player === npc ) {
 		round_results_dom.textContent = `Draw! Both sides chose ${player}!`;
@@ -71,16 +77,16 @@ function PlayRound( player ) {
 
 	if( beaten_by[player].includes(npc) ) {
 		score_player++;
+		score_player_dom.textContent = String(score_player);
 
 		const verb = verbs[`${player} beats ${npc}`];
-		round_results_dom.textContent = `You Win! ${player} ${verb["winner"]} ${npc}!`;
-		score_player_dom.textContent = String(score_player);
+		round_results_dom.textContent = `You Win! ${player} ${verb.winner} ${npc}!`;
 	}
 	else {
 		score_npc++;
+		score_npc_dom.textContent = String(score_npc);
 
 		const verb = verbs[`${npc} beats ${player}`];
-		round_results_dom.textContent = `You Lose! ${player} ${verb["loser"]} ${npc}!`;
-		score_npc_dom.textContent = String(score_npc);
+		round_results_dom.textContent = `You Lose! ${player} is ${verb.loser} by ${npc}!`;
 	}
 }
